@@ -50,6 +50,7 @@ CREATE TABLE nadadores (
     id_usuario INT UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,
     fecha_nacimiento DATE NOT NULL,
     id_categoria INT,
     email VARCHAR(150),
@@ -89,6 +90,7 @@ CREATE TABLE pagos (
     id_nadador INT NOT NULL,
     fecha_pago DATE NOT NULL,
     cantidad DECIMAL(10,2) NOT NULL,
+    tipo_pago ENUM('anual', 'mensual', 'unico') NOT NULL DEFAULT 'mensual',
     mes_pagado VARCHAR(7) NOT NULL,
     FOREIGN KEY (id_nadador) REFERENCES nadadores(id_nadador) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -123,6 +125,7 @@ CREATE TABLE resultados (
 
 CREATE INDEX idx_nadadores_categoria ON nadadores(id_categoria);
 CREATE INDEX idx_nadadores_fecha_nacimiento ON nadadores(fecha_nacimiento);
+CREATE INDEX idx_nadadores_dni ON nadadores(dni);
 CREATE INDEX idx_pagos_nadador ON pagos(id_nadador);
 CREATE INDEX idx_pagos_mes ON pagos(mes_pagado);
 CREATE INDEX idx_resultados_nadador ON resultados(id_nadador);

@@ -1,0 +1,5 @@
+# Includes Directory
+
+Place helper function files here:
+- auth.php (authentication helpers)
+- functions.php (common utility functions)

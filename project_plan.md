@@ -10,32 +10,56 @@
 
 ## 🎯 Phase 1: 프로젝트 구조 및 데이터베이스 설정
 
-### 1.1 디렉토리 구조 생성
+### 1.1 디렉토리 구조 생성 (MVC Pattern)
 
 ```
-natacion_club/
+natabase/
 ├── config/
-│   └── database.php
-├── includes/
-│   ├── auth.php
-│   └── functions.php
-├── public/
-│   ├── index.php
-│   ├── login.php
-│   ├── logout.php
+│   └── database.php              # PDO 연결 (singleton)
+├── models/
+│   ├── Database.php              # 베이스 DB 클래스
+│   ├── Usuario.php               # User 모델
+│   ├── Nadador.php               # Swimmer 모델 (DNI 포함)
+│   ├── Categoria.php             # Category 모델
+│   ├── Pago.php                  # Payment 모델 (tipo_pago 포함)
+│   ├── Competicion.php           # Competition 모델
+│   └── Resultado.php             # Result 모델
+├── controllers/
+│   ├── AuthController.php        # 인증
+│   ├── NadadoresController.php   # 선수 CRUD
+│   ├── PagosController.php       # 납부 CRUD (트랜잭션)
+│   ├── CompeticionesController.php
+│   └── ReportesController.php
+├── views/
+│   ├── layouts/
+│   │   ├── header.php
+│   │   ├── footer.php
+│   │   └── navbar.php
+│   ├── auth/
 │   ├── nadadores/
 │   ├── pagos/
 │   ├── competiciones/
 │   └── reportes/
-├── assets/css/
+├── public/
+│   ├── index.php                 # Front Controller
+│   ├── assets/css/
+│   └── assets/js/
+├── includes/
+│   ├── auth.php
+│   └── functions.php
 └── sql/
+    ├── schema.sql
+    ├── seed.sql
+    └── migrations/
 ```
 
 ### 1.2 데이터베이스 스키마 생성 (sql/schema.sql)
 
 - 9개 테이블 생성 스크립트
+- **nadadores 테이블에 DNI 컬럼 추가** (VARCHAR(20) NOT NULL UNIQUE)
+- **pagos 테이블에 tipo_pago 컬럼 추가** (ENUM('anual', 'mensual', 'unico'))
 - 외래키 제약조건 설정
-- 인덱스 최적화
+- 인덱스 최적화 (DNI 인덱스 포함)
 
 ### 1.3 초기 데이터 삽입 (sql/seed.sql)
 
@@ -91,11 +115,27 @@ function checkRole($allowedRoles) {
 
 1. 입력 폼
 
-   - nombre, apellidos, fecha_nacimiento
+   - nombre, apellidos, **dni** (DNI 검증 포함)
+   - fecha_nacimiento
    - email, telefono
    - 계정 연결 (id_usuario) - 선택사항
 
-2. **카테고리 자동 계산 로직**
+2. **DNI 검증**
+
+```php
+function validateDNI($dni) {
+    // Spanish DNI format: 8 digits + 1 letter
+    if (!preg_match('/^[0-9]{8}[A-Z]$/', $dni)) {
+        return false;
+    }
+    // Check uniqueness
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM nadadores WHERE dni = ?");
+    $stmt->execute([$dni]);
+    return $stmt->fetchColumn() == 0;
+}
+```
+
+3. **카테고리 자동 계산 로직**
 
 ```php
 // 생년월일 → 나이 계산 (2026년 기준)
@@ -109,7 +149,7 @@ $stmt = $pdo->prepare("
 ");
 ```
 
-3. Prepared Statement로 INSERT
+4. Prepared Statement로 INSERT (DNI 포함)
 
 ### 3.2 선수 목록 조회 (nadadores/index.php)
 
@@ -136,25 +176,46 @@ $stmt = $pdo->prepare("
 
 ### 4.1 납부 등록 (pagos/create.php)
 
-**핵심: 트랜잭션 처리**
+**핵심: 트랜잭션 처리 + tipo_pago**
+
+**입력 폼:**
+- 선수 선택 (드롭다운)
+- 납부일 (fecha_pago)
+- 금액 (cantidad)
+- **tipo_pago 선택 라디오 버튼:**
+  - 🔹 Mensual (50 EUR) - 1개월
+  - 🔹 Anual (500 EUR) - 12개월
+  - 🔹 Único (variable) - 일회성
+- 납부 대상월 (mes_pagado)
+
+**트랜잭션 로직:**
 
 ```php
 $pdo->beginTransaction();
 try {
-    // 1. pagos 테이블에 INSERT
+    // 1. pagos 테이블에 INSERT (tipo_pago 포함)
     $stmt = $pdo->prepare("
-        INSERT INTO pagos (id_nadador, fecha_pago, cantidad, mes_pagado)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO pagos (id_nadador, fecha_pago, cantidad, tipo_pago, mes_pagado)
+        VALUES (?, ?, ?, ?, ?)
     ");
-    $stmt->execute([$id_nadador, $fecha_pago, $cantidad, $mes_pagado]);
+    $stmt->execute([$id_nadador, $fecha_pago, $cantidad, $tipo_pago, $mes_pagado]);
 
-    // 2. nadadores 테이블의 ultimo_mes_pagado 업데이트
-    $stmt = $pdo->prepare("
-        UPDATE nadadores
-        SET ultimo_mes_pagado = ?
-        WHERE id_nadador = ?
-    ");
-    $stmt->execute([$mes_pagado, $id_nadador]);
+    // 2. nadadores 테이블의 ultimo_mes_pagado 업데이트 (tipo_pago에 따라 다르게 처리)
+    if ($tipo_pago !== 'unico') {
+        // anual = 12개월, mensual = 1개월
+        $months_to_add = ($tipo_pago === 'anual') ? 12 : 1;
+
+        $stmt = $pdo->prepare("
+            UPDATE nadadores
+            SET ultimo_mes_pagado = DATE_FORMAT(
+                DATE_ADD(STR_TO_DATE(CONCAT(?, '-01'), '%Y-%m-%d'), INTERVAL ? MONTH),
+                '%Y-%m'
+            )
+            WHERE id_nadador = ?
+        ");
+        $stmt->execute([$mes_pagado, $months_to_add, $id_nadador]);
+    }
+    // tipo_pago = 'unico'인 경우 ultimo_mes_pagado 업데이트 안 함
 
     $pdo->commit();
     echo "납부가 성공적으로 등록되었습니다.";
@@ -325,10 +386,12 @@ ORDER BY n.apellidos, n.nombre, comp.fecha DESC
 ### 반드시 지켜야 할 사항
 
 1. **PDO + Prepared Statements**: 모든 DB 작업
-2. **트랜잭션**: pagos 테이블 INSERT 시 필수
+2. **트랜잭션**: pagos 테이블 INSERT 시 필수 (tipo_pago에 따른 처리)
 3. **카테고리 자동 계산**: 생년월일 기반
 4. **시간 형식**: DECIMAL(8,2) 초 단위 저장
-5. **OOP 스타일** OOP 스타일을 준수한다
+5. **DNI 검증**: Spanish format (8 digits + 1 letter), UNIQUE 제약
+6. **tipo_pago 비즈니스 로직**: anual=12개월, mensual=1개월, unico=업데이트 안 함
+7. **MVC 패턴**: Models, Controllers, Views 분리, OOP 스타일 준수
 
 ### 권장 개발 순서
 
@@ -356,4 +419,5 @@ ORDER BY n.apellidos, n.nombre, comp.fecha DESC
 ---
 
 _작업 플랜 생성일: 2026-01-11_
+_최종 수정일: 2026-01-13_ (DNI, tipo_pago, MVC 패턴 추가)
 _기반 문서: natacion_club_project.md_

@@ -1,0 +1,6 @@
+# Layouts Directory
+
+Place common layout files here:
+- header.php
+- footer.php
+- navbar.php

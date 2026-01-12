@@ -53,6 +53,7 @@ CREATE TABLE nadadores (
     id_usuario INT UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,  -- Spanish National ID
     fecha_nacimiento DATE NOT NULL,
     id_categoria INT,
     email VARCHAR(150),
@@ -63,6 +64,8 @@ CREATE TABLE nadadores (
     FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
+
+**DNI Format**: 8 digits + 1 uppercase letter (e.g., "12345678Z")
 
 ### 2.4 familia_nadador (가족-선수 관계)
 
@@ -104,10 +107,16 @@ CREATE TABLE pagos (
     id_nadador INT NOT NULL,
     fecha_pago DATE NOT NULL,
     cantidad DECIMAL(10,2) NOT NULL,
+    tipo_pago ENUM('anual', 'mensual', 'unico') NOT NULL DEFAULT 'mensual',
     mes_pagado VARCHAR(7) NOT NULL,
     FOREIGN KEY (id_nadador) REFERENCES nadadores(id_nadador) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
+
+**tipo_pago Options**:
+- `anual`: Annual subscription (12 months, ~500 EUR)
+- `mensual`: Monthly payment (1 month, 50 EUR)
+- `unico`: One-time payment (variable amount, for events/equipment)
 
 ### 2.8 tiempos_minimos (최소 기록 - 연맹 기준)
 
@@ -237,6 +246,7 @@ CREATE TABLE nadadores (
     id_usuario INT UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,
     fecha_nacimiento DATE NOT NULL,
     id_categoria INT,
     email VARCHAR(150),
@@ -276,6 +286,7 @@ CREATE TABLE pagos (
     id_nadador INT NOT NULL,
     fecha_pago DATE NOT NULL,
     cantidad DECIMAL(10,2) NOT NULL,
+    tipo_pago ENUM('anual', 'mensual', 'unico') NOT NULL DEFAULT 'mensual',
     mes_pagado VARCHAR(7) NOT NULL,
     FOREIGN KEY (id_nadador) REFERENCES nadadores(id_nadador) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -349,6 +360,7 @@ INSERT INTO usuarios (email, password, rol, nombre) VALUES
 -- 자주 사용되는 검색 조건에 대한 인덱스
 CREATE INDEX idx_nadadores_categoria ON nadadores(id_categoria);
 CREATE INDEX idx_nadadores_fecha_nacimiento ON nadadores(fecha_nacimiento);
+CREATE INDEX idx_nadadores_dni ON nadadores(dni);  -- DNI 검색 최적화
 CREATE INDEX idx_pagos_nadador ON pagos(id_nadador);
 CREATE INDEX idx_pagos_mes ON pagos(mes_pagado);
 CREATE INDEX idx_resultados_nadador ON resultados(id_nadador);
@@ -375,4 +387,16 @@ CREATE INDEX idx_competiciones_fecha ON competiciones(fecha);
 
 ---
 
+## 7. 마이그레이션 (Migration)
+
+기존 데이터베이스가 있는 경우, 다음 마이그레이션 스크립트를 실행:
+
+- **001_add_dni_to_nadadores.sql**: DNI 컬럼 추가
+- **002_add_tipo_pago_to_pagos.sql**: tipo_pago 컬럼 추가
+
+마이그레이션 파일 위치: `sql/migrations/`
+
+---
+
 *문서 생성일: 2026-01-12*
+*최종 수정일: 2026-01-13* (DNI, tipo_pago 추가)

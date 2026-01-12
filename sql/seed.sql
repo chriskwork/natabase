@@ -56,12 +56,12 @@ INSERT INTO usuarios (email, password, rol, nombre) VALUES
 -- 테스트용 선수 데이터
 -- ============================================
 
-INSERT INTO nadadores (id_usuario, nombre, apellidos, fecha_nacimiento, id_categoria, email, telefono) VALUES
-(3, 'Pablo', 'Martinez Ruiz', '2010-05-15', 3, 'pablo@email.com', '612345678'),
-(NULL, 'Ana', 'Garcia Lopez', '2012-08-22', 2, 'ana@email.com', '623456789'),
-(NULL, 'Luis', 'Fernandez Diaz', '2008-03-10', 4, 'luis@email.com', '634567890'),
-(NULL, 'Sofia', 'Rodriguez Perez', '2011-11-30', 3, 'sofia@email.com', '645678901'),
-(NULL, 'Miguel', 'Sanchez Torres', '2006-07-18', 5, 'miguel@email.com', '656789012');
+INSERT INTO nadadores (id_usuario, nombre, apellidos, dni, fecha_nacimiento, id_categoria, email, telefono) VALUES
+(3, 'Pablo', 'Martinez Ruiz', '12345678A', '2010-05-15', 3, 'pablo@email.com', '612345678'),
+(NULL, 'Ana', 'Garcia Lopez', '23456789B', '2012-08-22', 2, 'ana@email.com', '623456789'),
+(NULL, 'Luis', 'Fernandez Diaz', '34567890C', '2008-03-10', 4, 'luis@email.com', '634567890'),
+(NULL, 'Sofia', 'Rodriguez Perez', '45678901D', '2011-11-30', 3, 'sofia@email.com', '645678901'),
+(NULL, 'Miguel', 'Sanchez Torres', '56789012E', '2006-07-18', 5, 'miguel@email.com', '656789012');
 
 -- ============================================
 -- 가족-선수 관계 데이터
@@ -103,12 +103,12 @@ INSERT INTO resultados (id_nadador, id_competicion, id_prueba, tiempo) VALUES
 -- 테스트용 납부 데이터
 -- ============================================
 
-INSERT INTO pagos (id_nadador, fecha_pago, cantidad, mes_pagado) VALUES
-(1, '2026-01-05', 50.00, '2026-01'),
-(2, '2026-01-05', 50.00, '2026-01'),
-(3, '2026-01-10', 50.00, '2026-01'),
-(4, '2026-01-08', 50.00, '2026-01'),
-(5, '2026-01-12', 50.00, '2026-01');
+INSERT INTO pagos (id_nadador, fecha_pago, cantidad, tipo_pago, mes_pagado) VALUES
+(1, '2026-01-05', 50.00, 'mensual', '2026-01'),
+(2, '2026-01-05', 50.00, 'mensual', '2026-01'),
+(3, '2026-01-10', 500.00, 'anual', '2026-01'),
+(4, '2026-01-08', 50.00, 'mensual', '2026-01'),
+(5, '2026-01-12', 50.00, 'mensual', '2026-01');
 
 -- 선수 테이블의 ultimo_mes_pagado 업데이트
 UPDATE nadadores SET ultimo_mes_pagado = '2026-01' WHERE id_nadador IN (1, 2, 3, 4, 5);
