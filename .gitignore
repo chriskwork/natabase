@@ -1,1 +1,6 @@
 .htaccess
+.claude
+node_modules
+
+
+# https://tailwindcss.com/docs/installation/tailwind-cli
