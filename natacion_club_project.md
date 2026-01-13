@@ -84,10 +84,14 @@
 | 컬럼       | 타입 | 제약조건           | 설명           |
 | ---------- | ---- | ------------------ | -------------- |
 | id         | INT  | PK, AUTO_INCREMENT | ID             |
-| id_usuario | INT  | FK → usuarios      | 가족 사용자 ID |
-| id_nadador | INT  | FK → nadadores     | 선수 ID        |
+| id_usuario | INT  | FK → usuarios, NOT NULL | 가족 사용자 ID |
+| id_nadador | INT  | FK → nadadores, NOT NULL | 선수 ID        |
 
 > 한 가족이 여러 선수를 관리할 수 있음 (1:N)
+
+**중요**:
+- 외래키 모두 `NOT NULL` - 보호자와 선수 모두 먼저 존재해야 연결 가능
+- **권장**: `UNIQUE(id_usuario, id_nadador)` 제약 조건 추가하여 중복 링크 방지 (마이그레이션 003 참조)
 
 ### 5. pruebas (종목)
 
@@ -247,19 +251,30 @@
 
 ## 기능 요구사항
 
-### 🔐 인증/권한
+### 🔐 인증/권한 및 회원가입
 
 - [ ] 로그인/로그아웃
 - [ ] 역할별 접근 제어 (코치/가족/선수)
 - [ ] 비밀번호 해시 처리 (password_hash)
+- [ ] **성인 선수 등록 (18세 이상)**: 본인이 직접 회원가입
+  - usuarios(rol='nadador') + nadadores(id_usuario 연결) 동시 생성 (트랜잭션)
+  - DNI 검증 (형식, letter, 중복)
+  - 나이 계산 및 카테고리 자동 할당
+- [ ] **보호자 등록**: 미성년자 선수의 보호자가 회원가입
+  - usuarios(rol='familia') 생성
+  - 로그인 후 미성년자 선수 등록 가능
+- [ ] **미성년자 선수 등록**: 보호자가 로그인 후 수행
+  - nadadores(id_usuario=NULL) 생성
+  - familia_nadador 테이블로 보호자와 연결
+  - 한 보호자가 여러 선수 등록 가능
 
 ### 👤 선수 관리 (CRUD)
 
-- [ ] 선수 등록 폼
-- [ ] **카테고리 자동 계산**: 생년월일 → 나이 계산 → 카테고리 배정
-- [ ] 선수 목록 조회
+- [ ] 선수 목록 조회 (보호자별, 카테고리별 필터)
 - [ ] 선수 정보 수정
 - [ ] 선수 삭제
+- [ ] **카테고리 자동 계산**: 생년월일 → 나이 계산 → 카테고리 배정
+- [ ] 보호자-선수 관계 조회 (familia_nadador JOIN)
 
 ### 💰 납부 관리 (CRUD + Transaction)
 
@@ -315,11 +330,116 @@
 SELECT id_categoria
 FROM categorias
 WHERE ? BETWEEN edad_minima AND edad_maxima
+LIMIT 1
 ```
 
 > PHP에서 생년월일로 나이 계산 후 쿼리 실행
 
-### 2. 납부 트랜잭션
+```php
+// 나이 계산
+function calculateAge($fechaNacimiento) {
+    $birthDate = new DateTime($fechaNacimiento);
+    $today = new DateTime();
+    return $today->diff($birthDate)->y;
+}
+
+// 카테고리 조회
+$edad = calculateAge($fecha_nacimiento);
+$stmt = $pdo->prepare("
+    SELECT id_categoria
+    FROM categorias
+    WHERE :edad BETWEEN edad_minima AND edad_maxima
+    LIMIT 1
+");
+$stmt->execute(['edad' => $edad]);
+$categoria = $stmt->fetch();
+```
+
+### 2. 성인 선수 등록 트랜잭션
+
+```php
+$pdo->beginTransaction();
+try {
+    // 1. 나이 검증 (18세 이상)
+    $edad = calculateAge($fecha_nacimiento);
+    if ($edad < 18) {
+        throw new Exception('미성년자는 보호자를 통해 등록하세요');
+    }
+
+    // 2. usuarios 생성
+    $stmt = $pdo->prepare("
+        INSERT INTO usuarios (email, password, rol, nombre)
+        VALUES (?, ?, 'nadador', ?)
+    ");
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $stmt->execute([$email, $hashedPassword, $nombre]);
+    $id_usuario = $pdo->lastInsertId();
+
+    // 3. DNI 검증 및 카테고리 할당
+    if (!validateDni($pdo, $dni)) {
+        throw new Exception('DNI inválido');
+    }
+    $id_categoria = assignCategory($pdo, $fecha_nacimiento);
+
+    // 4. nadadores 생성 (id_usuario 연결)
+    $stmt = $pdo->prepare("
+        INSERT INTO nadadores (id_usuario, nombre, apellidos, dni, fecha_nacimiento, id_categoria, email, telefono)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+    $stmt->execute([$id_usuario, $nombre, $apellidos, strtoupper($dni), $fecha_nacimiento, $id_categoria, $email, $telefono]);
+
+    $pdo->commit();
+} catch (Exception $e) {
+    $pdo->rollBack();
+    throw $e;
+}
+```
+
+### 3. 미성년자 선수 등록 트랜잭션 (보호자가 수행)
+
+```php
+$pdo->beginTransaction();
+try {
+    // 1. 보호자 권한 확인
+    if ($_SESSION['rol'] !== 'familia') {
+        throw new Exception('권한이 없습니다');
+    }
+
+    // 2. 나이 검증 (18세 미만)
+    $edad = calculateAge($fecha_nacimiento);
+    if ($edad >= 18) {
+        throw new Exception('성인은 직접 계정을 만들어야 합니다');
+    }
+
+    // 3. DNI 검증 및 카테고리 할당
+    if (!validateDni($pdo, $dni)) {
+        throw new Exception('DNI inválido');
+    }
+    $id_categoria = assignCategory($pdo, $fecha_nacimiento);
+
+    // 4. nadadores 생성 (id_usuario = NULL)
+    $stmt = $pdo->prepare("
+        INSERT INTO nadadores (id_usuario, nombre, apellidos, dni, fecha_nacimiento, id_categoria, email, telefono)
+        VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)
+    ");
+    $stmt->execute([$nombre, $apellidos, strtoupper($dni), $fecha_nacimiento, $id_categoria, $email, $telefono]);
+    $id_nadador = $pdo->lastInsertId();
+
+    // 5. familia_nadador 연결
+    $stmt = $pdo->prepare("
+        INSERT INTO familia_nadador (id_usuario, id_nadador)
+        VALUES (?, ?)
+    ");
+    $stmt->execute([$_SESSION['id_usuario'], $id_nadador]);
+
+    $pdo->commit();
+} catch (Exception $e) {
+    $pdo->rollBack();
+    throw $e;
+}
+```
+
+### 4. 납부 트랜잭션
 
 ```php
 $pdo->beginTransaction();
@@ -350,7 +470,7 @@ try {
 }
 ```
 
-### 3. 대회별 선수 수 조회 (GROUP BY + HAVING)
+### 5. 대회별 선수 수 조회 (GROUP BY + HAVING)
 
 ```sql
 SELECT
@@ -366,7 +486,7 @@ HAVING total_nadadores >= :min_nadadores
 ORDER BY c.fecha DESC
 ```
 
-### 4. 기록 비교 리포트 (4 Tables JOIN)
+### 6. 기록 비교 리포트 (4 Tables JOIN)
 
 ```sql
 SELECT
@@ -410,7 +530,8 @@ natabase/
 │   └── Resultado.php             # Result 모델
 ├── controllers/
 │   ├── AuthController.php        # 인증 (로그인/로그아웃)
-│   ├── NadadoresController.php   # 선수 CRUD (DNI 검증 포함)
+│   ├── RegistrationController.php # 회원가입 (성인/보호자)
+│   ├── NadadoresController.php   # 선수 CRUD + 미성년자 등록
 │   ├── PagosController.php       # 납부 CRUD (트랜잭션 처리)
 │   ├── CompeticionesController.php
 │   └── ReportesController.php    # 복합 쿼리 리포트
@@ -421,10 +542,13 @@ natabase/
 │   │   └── navbar.php            # 네비게이션 (역할별)
 │   ├── auth/
 │   │   ├── login.php
-│   │   └── logout.php
+│   │   ├── logout.php
+│   │   ├── register_adult.php    # 성인 선수 등록 폼
+│   │   └── register_family.php   # 보호자 등록 폼
 │   ├── nadadores/
 │   │   ├── index.php             # 선수 목록
-│   │   ├── create.php            # 선수 등록 (DNI 필드)
+│   │   ├── create.php            # 선수 등록 (코치/관리자용)
+│   │   ├── enroll_minor.php      # 미성년자 등록 (보호자용)
 │   │   ├── edit.php              # 선수 수정
 │   │   └── show.php              # 선수 상세
 │   ├── pagos/
@@ -446,13 +570,15 @@ natabase/
 │   └── .htaccess                 # URL rewriting (선택)
 ├── includes/
 │   ├── auth.php                  # 인증 헬퍼 함수
-│   └── functions.php             # 공통 함수
+│   ├── validation.php            # 검증 함수 (DNI, email, password 등)
+│   └── functions.php             # 공통 함수 (나이 계산, CSRF 등)
 ├── sql/
 │   ├── schema.sql                # 테이블 생성 (DNI, tipo_pago 포함)
 │   ├── seed.sql                  # 초기 데이터
 │   └── migrations/
 │       ├── 001_add_dni_to_nadadores.sql
-│       └── 002_add_tipo_pago_to_pagos.sql
+│       ├── 002_add_tipo_pago_to_pagos.sql
+│       └── 003_add_unique_constraint_familia_nadador.sql
 ├── logo.png
 ├── natacion_club_project.md      # 프로젝트 문서
 ├── project_plan.md               # 작업 계획
@@ -482,37 +608,136 @@ natabase/
 
 - [ ] 모든 사용자 입력에 Prepared Statements 적용
 - [ ] 비밀번호 `password_hash()` / `password_verify()` 사용
-- [ ] 세션 기반 인증
+- [ ] 세션 기반 인증 (httponly, secure 플래그)
+- [ ] CSRF 토큰 검증 (모든 폼)
+- [ ] XSS 방지 (`htmlspecialchars()` 출력 이스케이프)
 - [ ] 역할별 페이지 접근 제어
 - [ ] DNI 형식 검증 (8 digits + 1 letter)
+- [ ] DNI letter 검증 (modulo 23 알고리즘)
 - [ ] DNI 중복 체크 (UNIQUE 제약)
+- [ ] 이메일 중복 체크 (UNIQUE 제약)
+- [ ] 나이 기반 등록 플로우 분기 (18세 기준)
 
 ### DNI 검증
 
-Spanish DNI format validation:
+Spanish DNI format validation (형식 + letter 검증 + 중복 체크):
 
 ```php
-function validateDNI($dni) {
-    // Format: 8 digits + 1 uppercase letter
+function validateDni($pdo, $dni, $excludeId = null) {
+    $errors = [];
+
+    // 1. 정규화 (대문자 변환, 공백 제거)
+    $dni = strtoupper(trim($dni));
+
+    // 2. 형식 검증 (8 digits + 1 letter)
     if (!preg_match('/^[0-9]{8}[A-Z]$/', $dni)) {
-        return false;
+        $errors[] = 'DNI 형식이 올바르지 않습니다 (예: 12345678Z)';
+        return $errors;
     }
 
-    // Optional: Check letter calculation
+    // 3. Letter 검증 (modulo 23 알고리즘)
     $number = intval(substr($dni, 0, 8));
     $letter = substr($dni, 8, 1);
     $validLetters = 'TRWAGMYFPDXBNJZSQVHLCKE';
+    $expectedLetter = $validLetters[$number % 23];
 
-    return $letter === $validLetters[$number % 23];
+    if ($letter !== $expectedLetter) {
+        $errors[] = 'DNI 검증 문자가 올바르지 않습니다';
+    }
+
+    // 4. 중복 검사 (excludeId는 수정 시 본인 제외용)
+    $sql = "SELECT COUNT(*) FROM nadadores WHERE dni = ?";
+    $params = [$dni];
+
+    if ($excludeId !== null) {
+        $sql .= " AND id_nadador != ?";
+        $params[] = $excludeId;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+
+    if ($stmt->fetchColumn() > 0) {
+        $errors[] = '이미 등록된 DNI입니다';
+    }
+
+    return $errors;
 }
 
 // Usage in form validation
-if (!validateDNI($_POST['dni'])) {
-    die('DNI inválido. Formato: 12345678Z');
+$dniErrors = validateDni($pdo, $_POST['dni']);
+if (!empty($dniErrors)) {
+    foreach ($dniErrors as $error) {
+        echo $error . '<br>';
+    }
+    exit;
 }
 ```
+
+### 회원가입 플로우 정리
+
+#### 1. 성인 선수 등록 (18세 이상)
+```
+사용자 → /register_adult.php
+  ↓
+  입력: nombre, apellidos, dni, fecha_nacimiento, email, password, telefono
+  ↓
+  검증: DNI (형식+letter+중복), 이메일 중복, 나이 >= 18
+  ↓
+  BEGIN TRANSACTION
+    - INSERT usuarios (rol='nadador')
+    - INSERT nadadores (id_usuario 연결)
+    - 카테고리 자동 할당
+  COMMIT
+  ↓
+  로그인 세션 생성 → 대시보드
+```
+
+#### 2. 보호자 등록
+```
+사용자 → /register_family.php
+  ↓
+  입력: nombre, email, password
+  ↓
+  검증: 이메일 중복
+  ↓
+  INSERT usuarios (rol='familia')
+  ↓
+  로그인 세션 생성 → /enroll_minor.php (미성년자 등록 페이지)
+```
+
+#### 3. 미성년자 선수 등록 (보호자가 수행)
+```
+보호자 로그인 → /enroll_minor.php
+  ↓
+  권한 확인: rol='familia'
+  ↓
+  입력: nombre, apellidos, dni, fecha_nacimiento, email(선택), telefono(선택)
+  ↓
+  검증: DNI (형식+letter+중복), 나이 < 18
+  ↓
+  BEGIN TRANSACTION
+    - INSERT nadadores (id_usuario=NULL)
+    - INSERT familia_nadador (id_usuario=보호자_id, id_nadador=선수_id)
+    - 카테고리 자동 할당
+  COMMIT
+  ↓
+  성공 메시지 + "다른 선수 추가하기" 옵션
+```
+
+#### 핵심 비즈니스 규칙
+
+| 사용자 유형 | 등록 방법 | usuarios.rol | nadadores.id_usuario | 연결 방식 |
+|-------------|-----------|--------------|----------------------|----------|
+| **성인 선수 (18+)** | 본인이 직접 회원가입 | 'nadador' | 본인의 id_usuario | 자동 연결 |
+| **보호자** | 보호자가 회원가입 | 'familia' | N/A (nadadores 레코드 없음) | - |
+| **미성년자 선수** | 보호자가 대신 등록 | N/A (usuarios 레코드 없음) | NULL | familia_nadador 테이블로 연결 |
+
+**등록 순서**:
+- 성인 선수: 본인이 직접 가입 (usuarios + nadadores 동시 생성)
+- 미성년자 선수: 1) 보호자 먼저 가입 → 2) 보호자가 로그인 후 미성년자 등록 → 3) familia_nadador로 자동 연결
 
 ---
 
 _문서 생성일: 2026-01-09_
-_최종 수정일: 2026-01-13_ (DNI, tipo_pago, MVC 구조 추가)
+_최종 수정일: 2026-01-13_ (회원가입 플로우, DNI 검증, 성인/미성년자 등록 구분 추가)
