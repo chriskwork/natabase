@@ -1,10 +1,5 @@
 <?php
-
-$hello = "hello index";
-function hello_man() {
-  echo "hello man";
-}
-
+echo "index.php";
 ?>
 
 <!DOCTYPE html>
