@@ -11,23 +11,26 @@
 
 ### 2.1 PDO 데이터베이스 연결 설정 (config/database.php)
 
-#### Step 2.1.1: 기본 database.php 파일 생성
+<!-- #### Step 2.1.1: 기본 database.php 파일 생성
+
 ```
 할 일:
 1. config/database.php 파일 생성
 2. DB 접속 정보 변수 설정 (host, dbname, user, password)
-```
+``` -->
 
-#### Step 2.1.2: PDO 연결 코드 작성
+<!-- #### Step 2.1.2: PDO 연결 코드 작성
+
 ```
 할 일:
 1. try-catch 블록으로 PDO 연결 시도
 2. UTF-8 인코딩 설정
 3. 에러 모드를 EXCEPTION으로 설정
 4. 연결 실패 시 에러 메시지 출력
-```
+``` -->
 
 #### Step 2.1.3: 연결 테스트
+
 ```
 할 일:
 1. 간단한 테스트 PHP 파일 생성
@@ -40,6 +43,7 @@
 ### 2.2 공통 레이아웃 파일 생성 (views/layouts/)
 
 #### Step 2.2.1: header.php 생성
+
 ```
 할 일:
 1. views/layouts/header.php 파일 생성
@@ -50,6 +54,7 @@
 ```
 
 #### Step 2.2.2: footer.php 생성
+
 ```
 할 일:
 1. views/layouts/footer.php 파일 생성
@@ -58,6 +63,7 @@
 ```
 
 #### Step 2.2.3: navbar.php 생성 (기본)
+
 ```
 할 일:
 1. views/layouts/navbar.php 파일 생성
@@ -71,6 +77,7 @@
 ### 2.3 로그인 폼 화면 만들기 (views/auth/login.php)
 
 #### Step 2.3.1: 로그인 폼 HTML 작성
+
 ```
 할 일:
 1. views/auth/login.php 파일 생성
@@ -82,6 +89,7 @@
 ```
 
 #### Step 2.3.2: Tailwind로 로그인 폼 스타일링
+
 ```
 할 일:
 1. 폼을 화면 중앙에 배치 (flex, justify-center, items-center)
@@ -95,6 +103,7 @@
 ### 2.4 세션과 인증 기본 설정 (includes/)
 
 #### Step 2.4.1: auth.php 파일 생성
+
 ```
 할 일:
 1. includes/auth.php 파일 생성
@@ -104,6 +113,7 @@
 ```
 
 #### Step 2.4.2: 권한 확인 함수 작성
+
 ```
 할 일:
 1. checkRole($allowedRoles) 함수 작성
@@ -117,6 +127,7 @@
 ### 2.5 로그인 처리 로직 구현 (controllers/AuthController.php)
 
 #### Step 2.5.1: AuthController 클래스 생성
+
 ```
 할 일:
 1. controllers/AuthController.php 파일 생성
@@ -126,6 +137,7 @@
 ```
 
 #### Step 2.5.2: login() 메서드 작성 - 폼 표시
+
 ```
 할 일:
 1. public function login() 메서드 생성
@@ -134,6 +146,7 @@
 ```
 
 #### Step 2.5.3: login() 메서드 작성 - 로그인 처리
+
 ```
 할 일:
 1. POST 요청 처리 로직 추가
@@ -145,6 +158,7 @@
 ```
 
 #### Step 2.5.4: logout() 메서드 작성
+
 ```
 할 일:
 1. public function logout() 메서드 생성
@@ -158,6 +172,7 @@
 ### 2.6 프론트 컨트롤러 설정 (public/index.php)
 
 #### Step 2.6.1: 기본 라우팅 설정
+
 ```
 할 일:
 1. public/index.php 기존 내용 삭제
@@ -167,6 +182,7 @@
 ```
 
 #### Step 2.6.2: 라우트 추가
+
 ```
 할 일:
 1. 'login' → AuthController->login() 호출
@@ -179,6 +195,7 @@
 ### 2.7 로그인 기능 테스트
 
 #### Step 2.7.1: 테스트 사용자로 로그인 테스트
+
 ```
 할 일:
 1. 브라우저에서 localhost/public/index.php?action=login 접속
@@ -188,6 +205,7 @@
 ```
 
 #### Step 2.7.2: 세션 확인
+
 ```
 할 일:
 1. 로그인 후 세션 변수 확인
@@ -201,6 +219,7 @@
 ### 3.1 Nadador 모델 생성 (models/Nadador.php)
 
 #### Step 3.1.1: Nadador 클래스 기본 구조
+
 ```
 할 일:
 1. models/Nadador.php 파일 생성
@@ -210,6 +229,7 @@
 ```
 
 #### Step 3.1.2: getAll() 메서드 작성
+
 ```
 할 일:
 1. public function getAll() 메서드 생성
@@ -219,6 +239,7 @@
 ```
 
 #### Step 3.1.3: getById() 메서드 작성
+
 ```
 할 일:
 1. public function getById($id) 메서드 생성
@@ -227,6 +248,7 @@
 ```
 
 #### Step 3.1.4: create() 메서드 작성
+
 ```
 할 일:
 1. public function create($data) 메서드 생성
@@ -236,6 +258,7 @@
 ```
 
 #### Step 3.1.5: update() 메서드 작성
+
 ```
 할 일:
 1. public function update($id, $data) 메서드 생성
@@ -244,6 +267,7 @@
 ```
 
 #### Step 3.1.6: delete() 메서드 작성
+
 ```
 할 일:
 1. public function delete($id) 메서드 생성
@@ -256,6 +280,7 @@
 ### 3.2 Categoria 모델 생성 (models/Categoria.php)
 
 #### Step 3.2.1: Categoria 클래스 작성
+
 ```
 할 일:
 1. models/Categoria.php 파일 생성
@@ -268,6 +293,7 @@
 ### 3.3 DNI 검증 함수 작성 (includes/validation.php)
 
 #### Step 3.3.1: validation.php 파일 생성
+
 ```
 할 일:
 1. includes/validation.php 파일 생성
@@ -277,6 +303,7 @@
 ```
 
 #### Step 3.3.2: DNI 중복 확인 함수
+
 ```
 할 일:
 1. isDNIUnique($pdo, $dni, $excludeId = null) 함수 작성
@@ -289,6 +316,7 @@
 ### 3.4 NadadoresController 생성 (controllers/NadadoresController.php)
 
 #### Step 3.4.1: 컨트롤러 기본 구조
+
 ```
 할 일:
 1. controllers/NadadoresController.php 파일 생성
@@ -297,6 +325,7 @@
 ```
 
 #### Step 3.4.2: index() 메서드 - 선수 목록
+
 ```
 할 일:
 1. public function index() 메서드 생성
@@ -305,6 +334,7 @@
 ```
 
 #### Step 3.4.3: create() 메서드 - 선수 등록
+
 ```
 할 일:
 1. public function create() 메서드 생성
@@ -313,6 +343,7 @@
 ```
 
 #### Step 3.4.4: edit() 메서드 - 선수 수정
+
 ```
 할 일:
 1. public function edit($id) 메서드 생성
@@ -321,6 +352,7 @@
 ```
 
 #### Step 3.4.5: delete() 메서드 - 선수 삭제
+
 ```
 할 일:
 1. public function delete($id) 메서드 생성
@@ -333,6 +365,7 @@
 ### 3.5 선수 관리 뷰 파일 생성 (views/nadadores/)
 
 #### Step 3.5.1: index.php - 선수 목록 화면
+
 ```
 할 일:
 1. views/nadadores/index.php 파일 생성
@@ -342,6 +375,7 @@
 ```
 
 #### Step 3.5.2: create.php - 선수 등록 폼
+
 ```
 할 일:
 1. views/nadadores/create.php 파일 생성
@@ -351,6 +385,7 @@
 ```
 
 #### Step 3.5.3: edit.php - 선수 수정 폼
+
 ```
 할 일:
 1. views/nadadores/edit.php 파일 생성
@@ -363,6 +398,7 @@
 ### 3.6 카테고리 자동 계산 로직
 
 #### Step 3.6.1: 나이 계산 함수
+
 ```
 할 일:
 1. calculateAge($birthDate) 함수 작성
@@ -371,6 +407,7 @@
 ```
 
 #### Step 3.6.2: 카테고리 매칭 로직
+
 ```
 할 일:
 1. 나이로 categorias 테이블에서 해당 카테고리 조회
@@ -383,6 +420,7 @@
 ### 3.7 선수 관리 라우트 추가
 
 #### Step 3.7.1: index.php에 선수 관련 라우트 추가
+
 ```
 할 일:
 1. 'nadadores' → NadadoresController->index()
@@ -398,6 +436,7 @@
 ### 4.1 Pago 모델 생성 (models/Pago.php)
 
 #### Step 4.1.1: Pago 클래스 기본 구조
+
 ```
 할 일:
 1. models/Pago.php 파일 생성
@@ -406,6 +445,7 @@
 ```
 
 #### Step 4.1.2: 트랜잭션 납부 등록 메서드
+
 ```
 할 일:
 1. public function createWithTransaction($data) 메서드
@@ -420,6 +460,7 @@
 ### 4.2 PagosController 생성
 
 #### Step 4.2.1: 컨트롤러 기본 구조
+
 ```
 할 일:
 1. controllers/PagosController.php 파일 생성
@@ -427,6 +468,7 @@
 ```
 
 #### Step 4.2.2: create() 메서드 - 납부 등록
+
 ```
 할 일:
 1. 선수 선택 드롭다운
@@ -436,6 +478,7 @@
 ```
 
 #### Step 4.2.3: morosos() 메서드 - 미납자 목록
+
 ```
 할 일:
 1. 미납자 조회 쿼리 작성
@@ -448,6 +491,7 @@
 ### 4.3 납부 관리 뷰 파일 생성
 
 #### Step 4.3.1: index.php - 납부 내역 목록
+
 ```
 할 일:
 1. views/pagos/index.php 파일 생성
@@ -456,6 +500,7 @@
 ```
 
 #### Step 4.3.2: create.php - 납부 등록 폼
+
 ```
 할 일:
 1. views/pagos/create.php 파일 생성
@@ -465,6 +510,7 @@
 ```
 
 #### Step 4.3.3: morosos.php - 미납자 목록
+
 ```
 할 일:
 1. views/pagos/morosos.php 파일 생성
@@ -479,6 +525,7 @@
 ### 5.1 Competicion 모델 생성
 
 #### Step 5.1.1: 기본 CRUD 메서드
+
 ```
 할 일:
 1. models/Competicion.php 파일 생성
@@ -490,6 +537,7 @@
 ### 5.2 Resultado 모델 생성
 
 #### Step 5.2.1: 기본 CRUD 메서드
+
 ```
 할 일:
 1. models/Resultado.php 파일 생성
@@ -502,6 +550,7 @@
 ### 5.3 CompeticionesController 생성
 
 #### Step 5.3.1: 대회 CRUD
+
 ```
 할 일:
 1. controllers/CompeticionesController.php 파일 생성
@@ -509,6 +558,7 @@
 ```
 
 #### Step 5.3.2: 대회별 선수 필터링
+
 ```
 할 일:
 1. filter() 메서드 - 최소 n명 이상 참가한 대회 조회
@@ -519,6 +569,7 @@
 ### 5.4 대회 관리 뷰 파일 생성
 
 #### Step 5.4.1: 대회 목록, 등록, 수정 화면
+
 ```
 할 일:
 1. views/competiciones/index.php
@@ -533,6 +584,7 @@
 ### 6.1 ReportesController 생성
 
 #### Step 6.1.1: 기록 비교 리포트
+
 ```
 할 일:
 1. controllers/ReportesController.php 파일 생성
@@ -540,6 +592,7 @@
 ```
 
 #### Step 6.1.2: 코치 대시보드
+
 ```
 할 일:
 1. dashboard() 메서드
@@ -551,6 +604,7 @@
 ### 6.2 리포트 뷰 파일 생성
 
 #### Step 6.2.1: 기록 비교 화면
+
 ```
 할 일:
 1. views/reportes/tiempos.php
@@ -565,6 +619,7 @@
 ### 7.1 CSRF 토큰 구현
 
 #### Step 7.1.1: CSRF 토큰 생성 함수
+
 ```
 할 일:
 1. generateCSRFToken() 함수 작성
@@ -572,6 +627,7 @@
 ```
 
 #### Step 7.1.2: CSRF 토큰 검증 함수
+
 ```
 할 일:
 1. validateCSRFToken($token) 함수 작성
@@ -583,6 +639,7 @@
 ### 7.2 XSS 방지
 
 #### Step 7.2.1: 출력 이스케이프
+
 ```
 할 일:
 1. 모든 사용자 입력 출력 시 htmlspecialchars() 적용
@@ -594,6 +651,7 @@
 ### 7.3 Tailwind CSS 완성
 
 #### Step 7.3.1: 공통 스타일 적용
+
 ```
 할 일:
 1. 모든 페이지에 일관된 스타일 적용
@@ -608,6 +666,7 @@
 ### 8.1 기능 테스트
 
 #### Step 8.1.1: 인증 테스트
+
 ```
 할 일:
 1. 3가지 역할로 로그인 테스트
@@ -616,6 +675,7 @@
 ```
 
 #### Step 8.1.2: 선수 CRUD 테스트
+
 ```
 할 일:
 1. 선수 등록 테스트 (DNI 검증 포함)
@@ -625,6 +685,7 @@
 ```
 
 #### Step 8.1.3: 납부 트랜잭션 테스트
+
 ```
 할 일:
 1. 정상 납부 등록 테스트
@@ -637,6 +698,7 @@
 ## ✅ 체크리스트 요약
 
 ### Phase 2 (인증) - 총 16개 세부 작업
+
 - [ ] 2.1.1~2.1.3: DB 연결 (3개)
 - [ ] 2.2.1~2.2.3: 레이아웃 (3개)
 - [ ] 2.3.1~2.3.2: 로그인 폼 (2개)
@@ -645,6 +707,7 @@
 - [ ] 2.6.1~2.6.2: 라우팅 (2개)
 
 ### Phase 3 (선수 관리) - 총 15개 세부 작업
+
 - [ ] 3.1.1~3.1.6: Nadador 모델 (6개)
 - [ ] 3.2.1: Categoria 모델 (1개)
 - [ ] 3.3.1~3.3.2: DNI 검증 (2개)
@@ -654,25 +717,30 @@
 - [ ] 3.7.1: 라우트 (1개)
 
 ### Phase 4 (납부 관리) - 총 8개 세부 작업
+
 - [ ] 4.1.1~4.1.2: Pago 모델 (2개)
 - [ ] 4.2.1~4.2.3: PagosController (3개)
 - [ ] 4.3.1~4.3.3: 뷰 파일 (3개)
 
 ### Phase 5 (대회/기록) - 총 6개 세부 작업
+
 - [ ] 5.1~5.2: 모델 (2개)
 - [ ] 5.3.1~5.3.2: Controller (2개)
 - [ ] 5.4.1: 뷰 파일 (2개)
 
 ### Phase 6 (리포트) - 총 3개 세부 작업
+
 - [ ] 6.1.1~6.1.2: ReportesController (2개)
 - [ ] 6.2.1: 뷰 파일 (1개)
 
 ### Phase 7 (보안/UI) - 총 4개 세부 작업
+
 - [ ] 7.1.1~7.1.2: CSRF (2개)
 - [ ] 7.2.1: XSS 방지 (1개)
 - [ ] 7.3.1: CSS 완성 (1개)
 
 ### Phase 8 (테스트) - 총 3개 세부 작업
+
 - [ ] 8.1.1~8.1.3: 기능 테스트 (3개)
 
 ---

@@ -1,4 +1,0 @@
-# Config Directory
-
-Place configuration files here:
-- database.php (PDO connection with singleton pattern)

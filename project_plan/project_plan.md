@@ -406,7 +406,7 @@ ORDER BY n.apellidos, n.nombre, comp.fecha DESC
 
 ### 완료된 Phase
 
-- [✔] Phase 1: 프로젝트 구조 및 데이터베이스 설정
+- [x] Phase 1: 프로젝트 구조 및 데이터베이스 설정
 - [ ] Phase 2: 핵심 인증 시스템 구축
 - [ ] Phase 3: 선수 관리 (CRUD) 기능 구현
 - [ ] Phase 4: 납부 관리 시스템 구현
