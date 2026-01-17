@@ -114,6 +114,7 @@ CREATE TABLE pagos (
 ```
 
 **tipo_pago Options**:
+
 - `anual`: Annual subscription (12 months, ~500 EUR)
 - `mensual`: Monthly payment (1 month, 50 EUR)
 - `unico`: One-time payment (variable amount, for events/equipment)
@@ -373,15 +374,18 @@ CREATE INDEX idx_competiciones_fecha ON competiciones(fecha);
 ## 6. 참고 사항
 
 ### 시간 형식
+
 - `DECIMAL(8,2)` 사용 (초 단위)
 - 예시: 25.34초 → `25.34`, 1분 30.50초 → `90.50`
 
 ### 외래 키 동작
+
 - `ON DELETE CASCADE`: 부모 레코드 삭제 시 자식 레코드도 삭제
 - `ON DELETE SET NULL`: 부모 레코드 삭제 시 자식의 FK를 NULL로 설정
 - `ON UPDATE CASCADE`: 부모 PK 변경 시 자식 FK도 자동 변경
 
 ### 문자셋
+
 - `utf8mb4`: 이모지 포함 모든 유니코드 지원
 - `utf8mb4_unicode_ci`: 대소문자 구분 없는 정렬
 
@@ -398,5 +402,5 @@ CREATE INDEX idx_competiciones_fecha ON competiciones(fecha);
 
 ---
 
-*문서 생성일: 2026-01-12*
-*최종 수정일: 2026-01-13* (DNI, tipo_pago 추가)
+_문서 생성일: 2026-01-12_
+_최종 수정일: 2026-01-13_ (DNI, tipo_pago 추가)

@@ -81,7 +81,6 @@ natabase/
 ### 2.1 로그인/로그아웃 시스템
 
 - **login.php**: 이메일 + 비밀번호 검증
-
   - password_verify() 사용
   - 세션 생성 및 역할 저장
   - CSRF 토큰 생성
@@ -114,7 +113,6 @@ function checkRole($allowedRoles) {
 **핵심 기능:**
 
 1. 입력 폼
-
    - nombre, apellidos, **dni** (DNI 검증 포함)
    - fecha_nacimiento
    - email, telefono
@@ -179,6 +177,7 @@ $stmt = $pdo->prepare("
 **핵심: 트랜잭션 처리 + tipo_pago**
 
 **입력 폼:**
+
 - 선수 선택 (드롭다운)
 - 납부일 (fecha_pago)
 - 금액 (cantidad)
@@ -407,7 +406,7 @@ ORDER BY n.apellidos, n.nombre, comp.fecha DESC
 
 ### 완료된 Phase
 
-- [ ] Phase 1: 프로젝트 구조 및 데이터베이스 설정
+- [✔] Phase 1: 프로젝트 구조 및 데이터베이스 설정
 - [ ] Phase 2: 핵심 인증 시스템 구축
 - [ ] Phase 3: 선수 관리 (CRUD) 기능 구현
 - [ ] Phase 4: 납부 관리 시스템 구현
@@ -419,5 +418,5 @@ ORDER BY n.apellidos, n.nombre, comp.fecha DESC
 ---
 
 _작업 플랜 생성일: 2026-01-11_
-_최종 수정일: 2026-01-13_ (DNI, tipo_pago, MVC 패턴 추가)
-_기반 문서: natacion_club_project.md_
+_최종 수정일: 2026-01-13_ (DNI, tipo*pago, MVC 패턴 추가)
+*기반 문서: natacion*club_project.md*
