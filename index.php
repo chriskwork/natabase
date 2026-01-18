@@ -1,21 +1,11 @@
 <?php
 
-require_once "./config/database.php";
-
-
+// require_once "./config/database.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?php require_once "./views/layouts/header.php"; ?>
+<?php require_once "./views/layouts/navbar.php"; ?>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= $hello ?></title>
-</head>
 
-<body>
-  body;
-</body>
 
-</html>
+<?php require_once "./views/layouts/footer.php"; ?>

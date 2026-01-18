@@ -29,20 +29,20 @@
 4. 연결 실패 시 에러 메시지 출력
 ``` -->
 
-#### Step 2.1.3: 연결 테스트
+<!-- #### Step 2.1.3: 연결 테스트
 
 ```
 할 일:
 1. 간단한 테스트 PHP 파일 생성
 2. require_once로 database.php 불러오기
 3. 브라우저에서 접속해서 연결 성공 확인
-```
+``` -->
 
 ---
 
 ### 2.2 공통 레이아웃 파일 생성 (views/layouts/)
 
-#### Step 2.2.1: header.php 생성
+<!-- #### Step 2.2.1: header.php 생성
 
 ```
 할 일:
@@ -51,8 +51,8 @@
 3. Tailwind CSS CDN 링크 추가
 4. <meta charset="UTF-8"> 추가
 5. <body> 태그 시작
-```
-
+``` -->
+<!--
 #### Step 2.2.2: footer.php 생성
 
 ```
@@ -60,7 +60,7 @@
 1. views/layouts/footer.php 파일 생성
 2. </body>, </html> 태그로 닫기
 3. 필요한 JavaScript CDN 추가
-```
+``` -->
 
 #### Step 2.2.3: navbar.php 생성 (기본)
 
