@@ -5,6 +5,9 @@
 
 <?php require_once "./views/layouts/header.php"; ?>
 
+<main>
+  contents here
+</main>
 
 
 

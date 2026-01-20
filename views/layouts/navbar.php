@@ -12,13 +12,19 @@
         Actividades
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
+        Eventos
+      </li>
+      <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
         Precios
       </li>
     </ul>
 
     <!-- CTA 버튼 -->
-    <a href="#" class="bg-brand-turquoise hover:bg-[#0088b3] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white transition-colors duration-200">
-      Hazte socio
-    </a>
+    <div class="flex items-center gap-x-10">
+      <a href="#">Iniciar Sesión</a>
+      <a href="#" class="bg-brand-turquoise hover:bg-[#0088b3] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white transition-colors duration-200">
+        Hazte socio
+      </a>
+    </div>
   </div>
 </nav>
