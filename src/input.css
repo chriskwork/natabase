@@ -1,1 +1,8 @@
 @import 'tailwindcss';
+
+@theme {
+  /* 브랜드 커스텀 컬러 */
+  --color-brand-navy: #1a3a52;
+  --color-brand-turquoise: #0099cc;
+  --color-brand-lightblue: #87ceeb;
+}
