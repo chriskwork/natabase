@@ -1,0 +1,15 @@
+{
+  "tailwindCSS.experimental.classRegex": [
+    ["class:\\s*['\"`]([^'\"`]*)['\"`]", "([^\\s]+)"],
+    ["class\\s*=\\s*['\"`]([^'\"`]*)['\"`]", "([^\\s]+)"]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "php": "html"
+  },
+  "files.associations": {
+    "*.php": "php"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}
