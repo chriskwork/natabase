@@ -24,3 +24,6 @@ export default {
   },
   plugins: [],
 }
+
+
+// npx tailwindcss -i ./src/input.css -o public/assets/css/style.css --watch

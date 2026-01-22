@@ -16,7 +16,3 @@
   <header>
     <?php require_once "./views/layouts/navbar.php"; ?>
   </header>
-
-  <main>
-    <!-- this is real contents -->
-  </main>
