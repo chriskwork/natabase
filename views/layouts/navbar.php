@@ -1,7 +1,9 @@
 <nav class="bg-white shadow-sm border-gray-200 border-b">
   <div class="flex justify-between items-center mx-auto px-4 py-4 container">
     <!-- 로고 -->
-    <img src="public/assets/imgs/logo.png" alt="LOGO" class="w-auto h-10" />
+    <a href="/">
+      <img src="public/assets/imgs/logo.png" alt="LOGO" class="w-auto h-10" />
+    </a>
 
     <!-- 메뉴 리스트 -->
     <ul class="flex items-center gap-12">
