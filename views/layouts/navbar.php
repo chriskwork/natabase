@@ -11,7 +11,7 @@
         El Club
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
-        Actividades
+        Programas
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
         Eventos
