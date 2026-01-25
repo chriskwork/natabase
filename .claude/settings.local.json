@@ -4,7 +4,8 @@
       "Bash(tree:*)",
       "Bash(npm install:*)",
       "Bash(cd /Users/yohankim/Local\\\\ Sites/natabase/app/public:*)",
-      "Bash(cd /Users/yohankim/Local\\\\ Sites/natabase/app/public && npx tailwindcss:*)"
+      "Bash(cd /Users/yohankim/Local\\\\ Sites/natabase/app/public && npx tailwindcss:*)",
+      "Bash(npx tailwindcss:*)"
     ]
   }
 }
