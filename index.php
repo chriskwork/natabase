@@ -81,7 +81,7 @@
     </div>
   </section>
 
-  <!-- programs -->
+  <!-- programs section -->
   <section id="#programa" class="mx-auto mt-14 max-w-6xl text-center container">
     <h2 class="mb-8 font-bold text-brand-navy text-3xl text-center tracking-tight">
       Un programa para cada etapa
@@ -90,6 +90,52 @@
     <p>
       Programas adaptados a cada grupo de edad, desde los más pequeños hasta nadadores máster.
     </p>
+
+    <!-- programs cards -->
+    <div
+      class="gap-6 grid grid-cols-1 md:grid-cols-3 mt-8 text-left">
+      <!-- program Card -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">
+            Pre-Benjamín &amp; Benjamín
+          </h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">0-8 años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          Iniciación lúdica a la natación y fundamentos técnicos básicos.
+        </p>
+      </div>
+
+      <!-- program Card -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Benjamín</h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">9-10 años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          Perfeccionamiento de estilos básicos
+        </p>
+      </div>
+
+      <!-- program Card -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Alevín</h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">11-12 años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          Técnica avanzada y competición regional
+        </p>
+      </div>
+
+    </div>
   </section>
 
   <div style="height: 200px;"></div>
