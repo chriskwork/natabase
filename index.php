@@ -47,7 +47,7 @@
     </div>
 
     <!-- cards container -->
-    <div class="bg-gray-50 py-12">
+    <div class="bg-gray-50 px-4 py-12">
 
       <!-- cards -->
       <div class="gap-6 grid grid-cols-1 md:grid-cols-3 mx-auto max-w-6xl">
@@ -82,7 +82,7 @@
   </section>
 
   <!-- programs section -->
-  <section id="#programa" class="mx-auto mt-14 max-w-6xl text-center container">
+  <section id="#programa" class="mx-auto mt-14 px-4 max-w-6xl text-center">
     <h2 class="mb-8 font-bold text-brand-navy text-3xl text-center tracking-tight">
       Un programa para cada etapa
     </h2>
@@ -94,7 +94,7 @@
     <!-- programs cards -->
     <div
       class="gap-6 grid grid-cols-1 md:grid-cols-3 mt-8 text-left">
-      <!-- program Card -->
+      <!-- program Card #pre&benjamin -->
       <div
         class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
         <div class="flex justify-between items-center gap-2 mb-4">
@@ -109,20 +109,7 @@
         </p>
       </div>
 
-      <!-- program Card -->
-      <div
-        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
-        <div class="flex justify-between items-center gap-2 mb-4">
-          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Benjamín</h3>
-          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">9-10 años</span>
-        </div>
-
-        <p class="text-gray-300 text-sm">
-          Perfeccionamiento de estilos básicos
-        </p>
-      </div>
-
-      <!-- program Card -->
+      <!-- program Card #alevin -->
       <div
         class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
         <div class="flex justify-between items-center gap-2 mb-4">
@@ -133,6 +120,105 @@
         <p class="text-gray-300 text-sm">
           Técnica avanzada y competición regional
         </p>
+      </div>
+
+      <!-- program Card #infantil -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Infantil</h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">13-14 años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          specialización y preparación intensiva
+        </p>
+      </div>
+
+      <!-- program Card #junior -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Junior</h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">15-18 años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          Alto rendimiento y competición nacional
+        </p>
+      </div>
+
+      <!-- program Card #absoluto -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Absoluto</h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">19-24 años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          Nivel competitivo máximo
+        </p>
+      </div>
+
+      <!-- program Card #master -->
+      <div
+        class="bg-brand-navy p-6 rounded-2xl min-h-30 transition-all duration-300">
+        <div class="flex justify-between items-center gap-2 mb-4">
+          <h3 class="font-bold text-white group-hover:text-brand-turquoise text-xl transition-colors">Máster</h3>
+          <span class="bg-white/10 px-2 py-1 rounded font-bold text-white text-xs">25+ años</span>
+        </div>
+
+        <p class="text-gray-300 text-sm">
+          Mantenimiento y competición adulta
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="cifras" class="bg-brand-turquoise mt-14 text-white">
+    <div class="mx-auto px-4 py-4 max-w-6xl">
+
+      <!-- cifras -->
+      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10 text-center">
+
+        <div class="flex flex-col items-center p-4">
+          <span class="mb-2 font-black text-primary text-4xl md:text-5xl">
+            500+
+          </span>
+          <span class="font-medium text-gray-300 text-sm md:text-base uppercase tracking-wider">
+            Nadadores
+          </span>
+        </div>
+
+        <div class="flex flex-col items-center p-4">
+          <span class="mb-2 font-black text-primary text-4xl md:text-5xl">
+            50+
+          </span>
+          <span class="font-medium text-gray-300 text-sm md:text-base uppercase tracking-wider">
+            Competiciones al año
+          </span>
+        </div>
+
+        <div class="flex flex-col items-center p-4">
+          <span class="mb-2 font-black text-primary text-4xl md:text-5xl">
+            200+
+          </span>
+          <span class="font-medium text-gray-300 text-sm md:text-base uppercase tracking-wider">
+            Medallas conseguidas
+          </span>
+        </div>
+
+        <div class="flex flex-col items-center p-4">
+          <span class="mb-2 font-black text-primary text-4xl md:text-5xl">
+            16
+          </span>
+          <span class="font-medium text-gray-300 text-sm md:text-base uppercase tracking-wider">
+            Años de experiencia
+          </span>
+        </div>
+
       </div>
 
     </div>
