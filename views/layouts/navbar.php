@@ -14,9 +14,6 @@
         <a href="#programas">Programas</a>
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
-        <a href="#cifras">Cifras</a>
-      </li>
-      <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
         <a href="#eventos">Eventos</a>
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
