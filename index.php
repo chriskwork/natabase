@@ -47,7 +47,7 @@
     </div>
 
     <!-- cards container -->
-    <div class="bg-gray-50 px-4 py-12">
+    <div class="bg-gray-50 px-4 py-20">
 
       <!-- cards -->
       <div class="gap-6 grid grid-cols-1 md:grid-cols-3 mx-auto max-w-6xl">
@@ -82,7 +82,7 @@
   </section>
 
   <!-- programs section -->
-  <section id="programas" class="mx-auto mt-14 px-4 max-w-6xl text-center scroll-mt-10">
+  <section id="programas" class="mx-auto mt-20 px-4 max-w-6xl text-center scroll-mt-10">
     <h2 class="mb-8 font-bold text-brand-navy text-3xl text-center tracking-tight">
       Un programa para cada etapa
     </h2>
@@ -225,7 +225,7 @@
   </section>
 
   <!-- eventos section -->
-  <section id="eventos" class="mx-auto mt-14 px-4 max-w-6xl text-center scroll-mt-10">
+  <section id="eventos" class="mx-auto mt-14 px-4 py-14 max-w-6xl text-center scroll-mt-10">
     <h2 class="mb-10 font-bold text-brand-navy text-3xl text-center tracking-tight">
       Próximas Competiciones
     </h2>
@@ -286,13 +286,102 @@
 
     </div>
 
-    <div class="">
+    <div class="py-14">
       <p class="mb-4 font-serif font-medium text-brand-turquoise text-xl italic">¿Quieres participar?</p>
       <h3 class="mb-6 font-bold text-2xl leading-tight">Hazte socio y accede al <br class="md:hidden"> calendario completo</h3>
       <a href="#" class="inline-block bg-blue-500 hover:bg-blue-50 px-8 py-3 rounded-full font-bold text-white uppercase tracking-tight transition-colors">
         Quiero Ser Socio
       </a>
     </div>
+  </section>
+
+  <!-- precios section -->
+  <section id="precio" class="bg-gray-200 py-14 scroll-mt-10">
+
+
+
+    <div class="mx-auto mb-16 px-4 max-w-6xl text-center">
+      <h2 class="mb-4 font-bold text-brand-navy text-3xl md:text-4xl">
+        Tarifas Flexibles
+      </h2>
+      <p class="text-gray-400">
+        Invierte en tu salud y rendimiento con nuestros planes.
+      </p>
+    </div>
+    <div
+      class="flex md:flex-row flex-col justify-center gap-8 mx-auto max-w-4xl">
+      <!-- Monthly Plan -->
+      <div
+        class="relative flex flex-col flex-1 items-center bg-[#342318] p-8 border border-[#684731] hover:border-white/20 rounded-2xl overflow-hidden transition-colors">
+        <h3 class="mb-4 font-medium text-gray-300 text-lg">Plan Mensual</h3>
+        <div class="flex items-baseline gap-1 mb-6">
+          <span class="font-bold text-white text-5xl">50€</span>
+          <span class="text-gray-400">/mes</span>
+        </div>
+        <ul class="space-y-3 mb-8 w-full text-gray-300 text-sm">
+          <li class="flex items-center gap-3">
+            <span class="text-green-500 text-lg material-symbols-outlined">check_circle</span>
+            Acceso a todos los entrenamientos
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-green-500 text-lg material-symbols-outlined">check_circle</span>
+            Uso libre de piscina (fines de semana)
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-green-500 text-lg material-symbols-outlined">check_circle</span>
+            Sin compromiso de permanencia
+          </li>
+        </ul>
+        <button
+          class="bg-white/5 hover:bg-white/10 mt-auto px-6 py-3 border border-white/10 rounded-lg w-full font-bold text-white transition-colors">
+          Elegir Mensual
+        </button>
+      </div>
+      <!-- Annual Plan -->
+      <div
+        class="relative flex flex-col flex-1 items-center bg-[#342318] shadow-[0_0_30px_rgba(242,105,13,0.15)] p-8 border-2 border-primary rounded-2xl overflow-hidden">
+        <div
+          class="top-0 right-0 absolute bg-primary px-3 py-1 rounded-bl-lg font-bold text-white text-xs">
+          MÁS POPULAR
+        </div>
+        <h3 class="mb-4 font-medium text-primary text-lg">Plan Anual</h3>
+        <div class="flex items-baseline gap-1 mb-6">
+          <span class="font-bold text-white text-5xl">500€</span>
+          <span class="text-gray-400">/año</span>
+        </div>
+        <p
+          class="bg-brand-turquoise/10 mb-6 px-2 py-1 rounded text-brand-turquoise text-xs">
+          Ahorras 100€ al año
+        </p>
+        <ul class="space-y-3 mb-8 w-full text-gray-300 text-sm">
+          <li class="flex items-center gap-3">
+            <span class="text-primary text-lg material-symbols-outlined">check_circle</span>
+            Todo lo incluido en Mensual
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary text-lg material-symbols-outlined">check_circle</span>
+            Kit de bienvenida NATABASE
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary text-lg material-symbols-outlined">check_circle</span>
+            Licencia federativa incluida
+          </li>
+          <li class="flex items-center gap-3">
+            <span class="text-primary text-lg material-symbols-outlined">check_circle</span>
+            Prioridad en eventos
+          </li>
+        </ul>
+        <button
+          class="bg-primary hover:bg-primary/90 shadow-lg mt-auto px-6 py-3 rounded-lg w-full font-bold text-white transition-colors">
+          Elegir Anual
+        </button>
+      </div>
+    </div>
+
+
+
+
+
 
 
 
