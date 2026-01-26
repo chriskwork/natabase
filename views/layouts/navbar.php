@@ -6,18 +6,21 @@
     </a>
 
     <!-- nav(desktop) -->
-    <ul class="hidden lg:flex items-center gap-12">
+    <ul class="hidden lg:flex items-center gap-8">
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
-        El Club
+        <a href="#sobre-nosotros">El Club</a>
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
-        Programas
+        <a href="#programas">Programas</a>
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
-        Eventos
+        <a href="#cifras">Cifras</a>
       </li>
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
-        Precios
+        <a href="#eventos">Eventos</a>
+      </li>
+      <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
+        <a href="#precios">Precios</a>
       </li>
     </ul>
 
