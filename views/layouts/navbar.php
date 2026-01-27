@@ -19,6 +19,9 @@
       <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
         <a href="#precios">Precios</a>
       </li>
+      <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
+        <a href="#contacto">Contacto</a>
+      </li>
     </ul>
 
     <!-- hamburger menu -->
