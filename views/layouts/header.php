@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/public/assets/css/style.css?v=<?= time() ?>">
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
   <header>
     <?php require_once __DIR__ . "/navbar.php"; ?>
   </header>
