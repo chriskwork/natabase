@@ -66,6 +66,17 @@
         required>
     </div>
 
+    <!-- phone -->
+    <div class="mb-5">
+      <label for="name" class="block mb-2 font-medium text-gray-700 text-sm">Nombre</label>
+      <input
+        type="text"
+        name="phone"
+        id="phone"
+        placeholder="600 123 456"
+        class="px-4 py-3 border border-gray-300 focus:border-transparent rounded-lg outline-none focus:ring-2 focus:ring-brand-turquoise w-full transition">
+    </div>
+
     <!-- confirm role -->
     <div class="mb-8">
       <!-- si es mayor de 18, se puede registrar como nadador -->

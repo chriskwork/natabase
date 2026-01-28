@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$port = "10010"; // *LOCAL 포트확인
+$port = "10011"; // *LOCAL 포트확인
 $dbname = "natacion_club";
 $user = "root";
 $password = "root";
