@@ -62,7 +62,7 @@
 3. 필요한 JavaScript CDN 추가
 ``` -->
 
-#### Step 2.2.3: navbar.php 생성 (기본)
+<!-- #### Step 2.2.3: navbar.php 생성 (기본)
 
 ```
 할 일:
@@ -70,47 +70,47 @@
 2. 기본 내비게이션 바 HTML 작성
 3. 로고 이미지 링크 추가
 4. 로그인/로그아웃 버튼 자리 만들기
-```
+``` -->
 
 ---
 
 ### 2.3 로그인 폼 화면 만들기 (views/auth/login.php)
 
-#### Step 2.3.1: 로그인 폼 HTML 작성
+<!-- #### Step 2.3.1: 로그인 폼 HTML 작성
 
 ```
 할 일:
-1. views/auth/login.php 파일 생성
-2. header.php include
-3. 이메일 입력 <input type="email"> 작성
-4. 비밀번호 입력 <input type="password"> 작성
-5. 로그인 버튼 <button type="submit"> 작성
-6. footer.php include
-```
+1. views/auth/login.php 파일 생성√
+2. header.php include√
+3. 이메일 입력 <input type="email"> 작성√
+4. 비밀번호 입력 <input type="password"> 작성√
+5. 로그인 버튼 <button type="submit"> 작성√
+6. footer.php include√
+``` -->
 
-#### Step 2.3.2: Tailwind로 로그인 폼 스타일링
+<!-- #### Step 2.3.2: Tailwind로 로그인 폼 스타일링
 
 ```
 할 일:
-1. 폼을 화면 중앙에 배치 (flex, justify-center, items-center)
+1. 폼을 화면 중앙에 배치 (flex, justify-center, items-center)√
 2. 입력 필드에 테두리, 패딩 추가
 3. 버튼에 배경색, 호버 효과 추가
 4. 에러 메시지 표시 영역 추가
-```
+``` -->
 
 ---
 
 ### 2.4 세션과 인증 기본 설정 (includes/)
 
-#### Step 2.4.1: auth.php 파일 생성
+<!-- #### Step 2.4.1: auth.php 파일 생성
 
 ```
 할 일:
-1. includes/auth.php 파일 생성
+1. includes/auth.php 파일 생성√
 2. session_start() 호출
 3. 로그인 여부 확인 함수 isLoggedIn() 작성
 4. 현재 사용자 역할 확인 함수 getUserRole() 작성
-```
+``` -->
 
 #### Step 2.4.2: 권한 확인 함수 작성
 
