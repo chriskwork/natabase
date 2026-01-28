@@ -34,8 +34,8 @@
 
       <!-- action button -->
       <div class="hidden lg:flex items-center gap-x-10">
-        <a href="/views/auth/login.php" class="text-brand-turquoise hover:underline">Iniciar Sesión</a>
-        <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#f75e34] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white transition-colors duration-200">
+        <a href="/views/auth/login.php" class="text-brand-turquoise text-sm hover:underline">Iniciar Sesión</a>
+        <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#f75e34] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-sm transition-colors duration-200">
           Hazte socio
         </a>
       </div>

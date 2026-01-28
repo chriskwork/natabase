@@ -2,9 +2,17 @@
 <?php require_once "../../views/layouts/header.php"; ?>
 
 <main class="flex flex-1 justify-center items-center px-4 py-12">
+
   <form action="" method="post" class="bg-white shadow-lg p-8 rounded-2xl w-full max-w-md">
 
     <h1 class="mb-8 font-bold text-gray-800 text-2xl text-center">Iniciar Sesión</h1>
+
+    <!-- empty form check -->
+    <?php if (!empty($error)): ?>
+      <div class="bg-red-100 mb-4 px-4 py-3 border border-red-400 rounded-lg text-red-700">
+        <?php echo htmlspecialchars($error); ?>
+      </div>
+    <?php endif; ?>
 
     <!-- email -->
     <div class="mb-5">
