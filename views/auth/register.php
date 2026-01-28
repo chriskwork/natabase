@@ -1,5 +1,5 @@
 <!-- header -->
-<?php require_once "../../views/layouts/header.php"; ?>
+<?php require_once "../layouts/header.php"; ?>
 
 <main class="flex flex-1 justify-center items-center px-4 py-12">
   <form action="" method="post" class="bg-white shadow-lg p-8 rounded-2xl w-full max-w-md">
@@ -94,4 +94,4 @@
 
 
 <!-- footer -->
-<?php require_once "../../views/layouts/footer.php"; ?>
+<?php require_once "../layouts/footer.php"; ?>

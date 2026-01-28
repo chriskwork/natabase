@@ -62,8 +62,8 @@
         </li>
       </ul>
       <div class="flex flex-col gap-3">
-        <a href="#" class="text-center">Iniciar Sesión</a>
-        <a href="#" class="bg-brand-point hover:bg-[#e64c22] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-center transition-colors duration-200">
+        <a href="/views/auth/login.php" class="text-center">Iniciar Sesión</a>
+        <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#e64c22] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-center transition-colors duration-200">
           Hazte socio
         </a>
       </div>
