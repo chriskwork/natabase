@@ -46,7 +46,7 @@
 </button>
 
 <!-- Scroll to Top Script -->
-<script src="public/assets/js/scroll-to-top.js?v=<?= time() ?>"></script>
+<script src="/public/assets/js/scroll-to-top.js?v=<?= time() ?>"></script>
 
 </body>
 

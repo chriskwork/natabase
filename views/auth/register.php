@@ -68,14 +68,16 @@
 
     <!-- confirm role -->
     <div class="mb-8">
-
+      <!-- si es mayor de 18, se puede registrar como nadador -->
       <div class="flex items-center mb-4">
-        <input id="role_nadador" type="checkbox" value="nadador" class="bg-brand-navy border border-default-medium rounded-xs focus:ring-1 focus:ring-brand-navy w-4 h-4">
-        <label for="default-checkbox" class="ms-2 font-medium text-heading text-sm select-none">Soy Nadador/a</label>
+        <input id="role_nadador" type="radio" value="nadador" name="role" class="bg-brand-navy border border-default-medium rounded-full focus:ring-1 focus:ring-brand-navy w-4 h-4">
+        <label for="role_nadador" class="ms-2 font-medium text-heading text-sm select-none">Soy Nadador/a</label>
       </div>
+
+      <!-- si es menor, su padre/madre tiene que registrar -->
       <div class="flex items-center">
-        <input checked id="role_familia" type="checkbox" value="familia" class="bg-brand-navy border border-default-medium rounded-xs focus:ring-1 focus:ring-brand-navy w-4 h-4">
-        <label for="checked-checkbox" class="ms-2 font-medium text-heading text-sm select-none">Soy Familia(Registrar un/a nadador/a menor)</label>
+        <input checked id="role_familia" type="radio" value="familia" name="role" class="bg-brand-navy border border-default-medium rounded-full focus:ring-1 focus:ring-brand-navy w-4 h-4">
+        <label for="role_familia" class="ms-2 font-medium text-heading text-sm select-none">Soy Familia(Registrar un/a nadador/a menor)</label>
       </div>
 
     </div>
@@ -86,7 +88,6 @@
       class="bg-brand-point hover:bg-[#f75e34] py-3 rounded-lg w-full font-semibold text-white transition duration-200 cursor-pointer">
       Registrar
     </button>
-
 
   </form>
 </main>
