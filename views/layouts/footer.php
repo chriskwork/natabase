@@ -31,7 +31,7 @@
     </div>
 
     <p class="text-xs">
-      © 2026 NATABASE Club de Natación. Todos los derechos reservados.
+      © NATABASE Club de Natación.
     </p>
 
   </div>

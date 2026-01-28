@@ -1,8 +1,8 @@
-<nav class="bg-white mx-auto border-gray-200 border-b max-w-6xl">
+<nav class="bg-white mx-auto max-w-6xl">
   <div class="flex justify-between items-center mx-auto px-4 py-4 w-full">
     <!-- LOGO -->
     <a href="/">
-      <img src="public/assets/imgs/logo.png" alt="LOGO" class="w-auto h-10" />
+      <img src="/public/assets/imgs/logo.png" alt="LOGO" class="w-auto h-10" />
     </a>
 
     <!-- nav(desktop) -->
@@ -33,7 +33,7 @@
 
     <!-- action button -->
     <div class="hidden lg:flex items-center gap-x-10">
-      <a href="#">Iniciar Sesión</a>
+      <a href="/views/auth/login.php">Iniciar Sesión</a>
       <a href="#" class="bg-brand-point hover:bg-[#e64c22] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white transition-colors duration-200">
         Hazte socio
       </a>
