@@ -1,12 +1,5 @@
 <?php
 
-// # Hostinger server #
-// $host = "localhost";
-// $dbname = "u443289048_natacion_club";
-// $user = "u443289048_natabase";
-// $password = "B3hLh#u8";
-// $charset = "utf8mb4";
-
 $host = "localhost:10011"; // *LOCAL 포트확인
 $dbname = "natacion_club";
 $user = "root";
