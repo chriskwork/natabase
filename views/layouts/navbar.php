@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../../includes/auth.php';
+?>
+
 <div class="border-gray-100 border-b">
   <nav class="bg-white mx-auto max-w-6xl">
     <div class="flex justify-between items-center mx-auto px-4 py-4 w-full">
@@ -34,10 +38,17 @@
 
       <!-- action button -->
       <div class="hidden lg:flex items-center gap-x-10">
-        <a href="/views/auth/login.php" class="text-brand-turquoise text-sm hover:underline">Iniciar Sesión</a>
-        <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#f75e34] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-sm transition-colors duration-200">
-          Hazte socio
-        </a>
+        <?php if (isLoggedIn()): ?>
+          <!-- logged in -->
+          <span class="text-gray-700 text-sm">Hola, <?= htmlspecialchars($_SESSION['nombre']) ?></span>
+          <a href="/views/auth/logout.php" class="text-brand-turquoise text-sm hover:underline">Cerrar Sesión</a>
+        <?php else: ?>
+          <!-- not logged in -->
+          <a href="/views/auth/login.php" class="text-brand-turquoise text-sm hover:underline">Iniciar Sesión</a>
+          <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#f75e34] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-sm transition-colors duration-200">
+            Hazte socio
+          </a>
+        <?php endif; ?>
       </div>
     </div>
 
@@ -45,7 +56,7 @@
 
 
 
-    <!-- 모바일 메뉴 (토글) -->
+    <!-- mobile menu toggle -->
     <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4">
       <ul class="flex flex-col gap-4 mb-4 text-center">
         <li class="text-gray-700 hover:text-brand-turquoise transition-colors duration-200 cursor-pointer">
@@ -62,10 +73,17 @@
         </li>
       </ul>
       <div class="flex flex-col gap-3">
-        <a href="/views/auth/login.php" class="text-center">Iniciar Sesión</a>
-        <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#e64c22] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-center transition-colors duration-200">
-          Hazte socio
-        </a>
+        <?php if (isLoggedIn()): ?>
+          <!-- logged in -->
+          <span class="text-gray-700 text-center">Hola, <?= htmlspecialchars($_SESSION['nombre']) ?></span>
+          <a href="/views/auth/logout.php" class="text-brand-turquoise text-center hover:underline">Cerrar Sesión</a>
+        <?php else: ?>
+          <!-- not logged in -->
+          <a href="/views/auth/login.php" class="text-center">Iniciar Sesión</a>
+          <a href="/views/auth/register.php" class="bg-brand-point hover:bg-[#e64c22] shadow-sm hover:shadow-md px-6 py-2 rounded-lg font-semibold text-white text-center transition-colors duration-200">
+            Hazte socio
+          </a>
+        <?php endif; ?>
       </div>
     </div>
   </nav>
